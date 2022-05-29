@@ -143,6 +143,10 @@ body>div{
 {
     color: green;
 }
-
+body>h1
+{
+    text-align: center;
+    margin-top: 10%;
+}
 
 
