@@ -1,0 +1,102 @@
+<!DOCTYPE hmtl>
+<html> 
+    <!--
+        <h1-h6> headings
+        <p> paragraph
+        <imp> image
+        ui,li
+        a 
+        table
+        input
+        button
+        div
+    -->
+    <!--Phandau-->
+    <head>
+        <meta charset ="UTF-8">
+        <title>     First Web   </title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <!--Phan than-->
+    <body>
+        <div id="toast">
+        </div>
+        <div>
+            <div onclick="showSucessToast();" class="btn btn--success">
+                Show success toast
+            </div>
+            <div onclick="showFailToast();" class="btn btn--fail">
+                Show fail toast
+            </div>
+        </div>
+        <script>
+            function toast({title='',
+            message='',type='fail',
+            duration})
+            {
+                const main=document.getElementById('toast');
+                if(main)
+                {   
+                    
+                    const toast=document.createElement('div');
+                    toast.classList.add('toast',`toast--${type}`);
+                    const auto=setTimeout(function()
+                    {
+                    main.removeChild(toast);
+                    },duration+2000);
+                    toast.onclick = function(e)
+                    {
+                        if(e.target.closest('.toast__close'))
+                        {
+                            main.removeChild(toast);
+                            clearTimeout(auto);
+                        }
+                    };
+                    toast.style.animation= `slidein ease-in 3s, fade linear 1s 4s forwards`;
+                    
+                    const icons={
+                        success:'fa-solid fa-heart',
+                        info:'fa-solid fa-heart',
+                        fail:'fa-solid fa-heart'
+                    };
+                    const icon=icons[type];
+                    toast.innerHTML=`
+                    <div class="toast__icon">
+                    <i class="${icon}"></i>
+                        
+                    </div>
+                    <div class="toast__body">
+                    <h3 class="toast__title">${title}</h3>
+                    <p class="toast__msg">${message}</p>
+                    </div>
+                    <div class="toast__close">
+                        <i class="fa-solid fa-x"></i>
+                    </div>`;
+                    main.appendChild(toast);
+                    
+                }
+                
+            };
+            
+            function showSucessToast ()
+            {
+                toast({
+                title:'Success',
+                message:'MSG1',
+                type:'success',
+                duration: 4000
+                    });
+            };
+            function showFailToast()
+            {
+                toast({
+                title:'Fail',
+                message:'MSG2',
+                type:'fail',
+                duration: 4000
+            });
+            };
+        </script>
+    </body>
+</html>
